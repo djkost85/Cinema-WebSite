@@ -1,18 +1,22 @@
 <?php
 
+require_once("lib/log4php/Logger.php");
+
 abstract class TPage {
 
 	///Fichier template 
 	protected $_tplFile;
 	
 	//titre de la page
-	protected $_title;	
+	protected $title;	
 	
 	//accès au logger
 	protected $logger;
 	
+	protected $test;
+	
 	//gestion de la session courante
-	protected $sessionMgr;
+	//protected $sessionMgr;
 	
 	//message d'erreur à afficher
 	private $error;
@@ -20,20 +24,40 @@ abstract class TPage {
 	//objet regroupant tout les paramètres de l'application
 	protected $_param;
 
-	public function __construct(SessionMgr $sessionMgr, $tplFile, $title){
+	/// objet regroupant tout les paramètres de template
+	protected $page;
+	
+	/**
+	 * 
+	 * Constructeur
+	 * 
+	 * @param $tplFile chemin vers le nom du fichier à partir du répertoire de stockage des fichier template
+	 * @param $title titre correspondant à la page
+	 * @param $app objet application pour accèder au variable post, get et session
+	 */
+	public function __construct($tplFile, $title, Application $app/*,SessionMgr $sessionMgr*/){
 		$this->_tplFile     = $tplFile;
-		$this->_title = $title;
 		$this->logger = Logger::getRootLogger();
-		$this->sessionMgr = $sessionMgr;
+		$this->app = $app;		
+		
+		/// Paramètre utilisé par le template
+		$this->page = new stdClass();
+		$this->page->title = $title;
+		
+		//$this->sessionMgr = $sessionMgr;
 	}
 
-	abstract protected function heart();
-
-	public function render(){
-		include $this->_tplPath."head.tpl";
-		$this->heart();
-		include $this->_tplPath."foot.tpl";
-
+	/**
+	 * Cette fonction à réimplémenter
+	 * affiche le contenu à afficher
+	 * 
+	 * @param  $tplPath chemin vers les fichiers template de l'application doit 
+	 * finir par un /
+	 */
+	public function content($tplPath){
+		printt($this->page, $tplPath."head.tpl");
+		printt($this->page, $tplPath.$this->_tplFile);
+		printt($this->page, $tplPath."foot.tpl");
 	}
 
 	protected function addError($error){
@@ -43,6 +67,8 @@ abstract class TPage {
 	protected function getError(){
 		return $this->error;
 	}
+	
+	abstract function generateHTML();
 
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once("UserLibrary.php5");
+require_once("lib/log4php/Logger.php");
 
 class MysqlManager {
 
@@ -19,8 +19,8 @@ class MysqlManager {
 	static public function mysqlConnexion(){
 		if(self::$_isConnected == false){
 			mysql_pconnect(self::$_dbServerName, self::$_dbUserName, self::$_dbPassword);
-			@mysql_select_db(self::$_databaseName) or die_dme( "La base demandée n'existe pas");
-			mysql_query("SET NAMES 'utf8'") or die_dme("N'arrive pas à positionné l'UTF-8");
+			@mysql_select_db(self::$_databaseName) or die( "La base demandée n'existe pas");
+			mysql_query("SET NAMES 'utf8'") or die("N'arrive pas à positionné l'UTF-8");
 			//mysql_query();
 			self::$_isConnected = true;
 		}
@@ -46,7 +46,7 @@ class MysqlManager {
 		//gestion logging
 		if($result === false){
 			$errMsg = "erreur dans la requète à la base, query : ".$query."<br />".mysql_error(); 
-			die_dme($errMsg);
+			die($errMsg);
 			Logger::getRootLogger()->error($errMsg);			
 		}else{
 			Logger::getRootLogger()->debug($query);

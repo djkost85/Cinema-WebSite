@@ -1,35 +1,42 @@
 <?php
-	
+
+require_once("class/sql/MysqlManager.php");
+
+require_once("class/model/Film.php");
+
 /**
- * 
+ *
  * Cette classe se charge des échanges entre la table
  * Film et l'application
  *
  */
 class FilmMgr {
+
+	/// Tableau RAM rassemblant les films actuellement chargés 
+	private $films;
 	
-	function __construct(){
-		
+	public function __construct(){
+
 	}
-	
-	/**
-	 * 
-	 * Cette fonction s'occupe d'importer un fichier csv contenant la programmation
-	 * 
-	 * @param  $file chemin d'accès au csv
-	 * @return tableau contenant la liste des fichiers importés 
-	 */
-	function importProg(string $file){
-		
-		$res = fopen($file,'r');
-		//on passe la premier ligne
-		fgets($res, 4096);
-		while(($buffer = fgets($res, 4096)) !== false){
-			$register = split(";",$buffer);
-			$registe
+
+	public function getFilm($title){
+
+		if(empty($this->films[$title])){
+			$result = MysqlManager::getRowResult("SELECT id, resume, poster FROM Film WHERE title = '".mysql_escape_string($title)."'");
+			if(empty($result)){
+				$film = new Film($title);
+				$this->films[$title] = $film;
+				return $film;
+			}else{
+				$film = new Film($title);
+				$this->films[$title] = $film;
+				return $film;
+			}
+		}else{
+			return $this->films[$title];
 		}
 	}
-		
-} 
+
+}
 
 ?>

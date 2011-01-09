@@ -1,0 +1,164 @@
+PHPUnit 3.4.5 by Sebastian Bergmann.
+
+Array
+(
+    [feed] => Array
+        (
+            [movie] => Array
+                (
+                    [0] => Array
+                        (
+                            [code] => 5818
+                            [originalTitle] => Titanic
+                            [productionYear] => 1997
+                            [poster] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/01/60/25/016025_af.jpg
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [code] => 12593
+                            [originalTitle] => Titanic
+                            [title] => Titanic
+                            [productionYear] => 1953
+                            [poster] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/nmedia/18/60/09/54/18886576.jpg
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [code] => 31037
+                            [originalTitle] => Titanic
+                            [productionYear] => 1915
+                        )
+
+                    [3] => Array
+                        (
+                            [code] => 55484
+                            [originalTitle] => The Legend of Titanic
+                            [title] => Les Aventures du Titanic
+                            [productionYear] => 2003
+                        )
+
+                    [4] => Array
+                        (
+                            [code] => 129802
+                            [originalTitle] => Le Syndrome du Titanic
+                            [productionYear] => 2007
+                            [poster] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/nmedia/18/72/20/73/19159446.jpg
+                                )
+
+                        )
+
+                )
+
+            [news] => Array
+                (
+                    [0] => Array
+                        (
+                            [code] => 18598009
+                            [genre] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [code] => movie
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [code] => star
+                                        )
+
+                                )
+
+                            [picture] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/nmedia/18/79/75/54/19516809.jpg
+                                )
+
+                        )
+
+                    [1] => Array
+                        (
+                            [code] => 18596154
+                            [genre] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [code] => movie
+                                        )
+
+                                )
+
+                            [picture] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/nmedia/18/78/68/23/19474132.jpg
+                                )
+
+                        )
+
+                    [2] => Array
+                        (
+                            [code] => 18591866
+                            [genre] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [code] => movie
+                                        )
+
+                                )
+
+                        )
+
+                    [3] => Array
+                        (
+                            [code] => 18591579
+                            [genre] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [code] => movie
+                                        )
+
+                                )
+
+                            [picture] => Array
+                                (
+                                    [href] => http://images.allocine.fr/medias/nmedia/18/74/08/93/19236999.jpg
+                                )
+
+                        )
+
+                    [4] => Array
+                        (
+                            [code] => 18591396
+                            [genre] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [code] => movie
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+.
+
+Time: 1 second, Memory: 4.25Mb
+
+OK (1 test, 0 assertions)

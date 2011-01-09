@@ -1,13 +1,16 @@
+{*Page d'index de la page prog*}
 {mask:main}
 <h1>Programmation</h1>
 <h2>Saisie</h2>
 <h3>Import à partir d'un fichier texte</h3>
-<form method="post" action="index.php?page=Prog&display=Import">
+A venir prochainement ...
+{* <form method="post" action="index.php?page=ProgPage&action=Import">
+	<imput type="hidden" name="type" value="file" />
 	<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
 	Fichier : <input type="file" name="progFile" /> <input type="submit" />
-</form>
+</form> *}
 <h3>A partir d'allociné</h3>
-A venir prochainement ...
+<a href="index.php?page=ProgPage&action=Import">Go</a>
 <h3>Manuellement</h3>
 A venir prochainement ...
 
@@ -15,7 +18,7 @@ A venir prochainement ...
 <ul>
 {programmation}
 </ul>
-<a href="index.php?page=Prog&display=Archive">Consulter archive</a>
+<a href="index.php?page=ProgPage&display=Archive">Consulter archive</a>
 
 {/mask}
 

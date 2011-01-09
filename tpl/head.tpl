@@ -6,8 +6,9 @@
 		<title>{title}</title>
 	</head>
 	<body>
+	{test}
 		<ul>
-			<li><a href="index.php?page=Prog">Prog</a></li>
+			<li><a href="index.php?page=ProgPage">Programmation</a></li>
 			<li><a href="index.php?page=Newsletter">Newsletter</a></li>
 		</ul>
 {/mask}

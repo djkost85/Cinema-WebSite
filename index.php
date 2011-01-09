@@ -1,15 +1,8 @@
 <?php
 
-/**
- * 
- * Cette classe se charge de charger le programme
- * @author jerome
- *
- */
-class Prog {
-	function __construct(){
-		
-	}
-	
-	
-}
+require_once('class/kernel/Application.php');
+
+$app = new Application();
+
+$app->generateHTML();
+$app->display("tpl/");

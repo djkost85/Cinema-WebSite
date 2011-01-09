@@ -1,0 +1,3 @@
+{mask:main}
+bienvenu
+{/mask}

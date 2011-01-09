@@ -1,0 +1,5 @@
+Liste des choses à faire :
+
+* P1 - Importer la prog à partir d'Allociné (1/2 journée)
+* P1 - Créer un site web (un week end entier)
+* P2 - Saisir la prog manuellement (1/2 journée)

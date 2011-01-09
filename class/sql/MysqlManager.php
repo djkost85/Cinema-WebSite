@@ -141,17 +141,21 @@ class MysqlManager {
 
 
 		$row = mysql_fetch_row($result);
-
-		if(count($row) != 1){
-			die_dme("La requète renvoie un résultat non suporté");
-		}
-
-		if(count($row[0]) != 1){
-			die_dme("La requète renvoie un résultat non suporté");
-		}
 		
-		return $row[0];
-
+		if(empty($row)){
+			return "";
+		}else{
+		
+			if(count($row) != 1){
+				die_dme("La requète renvoie un résultat non suporté");
+			}
+	
+			if(count($row[0]) != 1){
+				die_dme("La requète renvoie un résultat non suporté");
+			}
+			
+			return $row[0];
+		}
 	}
 
 	/**

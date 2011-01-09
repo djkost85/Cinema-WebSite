@@ -6,11 +6,27 @@
 	class TestAllocineAPI extends PHPUnit_Framework_TestCase {
 		
 		function testSearchFilm(){
+			$filmMgr = new FilmMgr();
+			$allocineApi = new AllocineAPI($filmMgr);
 			
-			$allocineApi = new AllocineAPI();
+			$result = $allocineApi->searchFilms("Titanic", 5);
 			
-			$allocineApi->searchFilms("Titanic", 5);
+			$this->assertEquals(5,count($result));
 			
+		}
+		
+		function testGetProg(){
+			$filmMgr = new FilmMgr();
+			$allocineApi = new AllocineAPI($filmMgr);
+			$allocineApi->getProgCine(35130,"W0419","2011-01-09");
+		}
+		
+		function testEnrichFilm(){
+			$film = new Film("A bout portant", "", "", "", 0, 177854);
+			$filmMgr = new FilmMgr();
+			$allocineApi = new AllocineAPI($filmMgr);
+			$allocineApi->enrichFilm($film);
+			print_r($film);
 		}
 		
 		

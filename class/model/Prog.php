@@ -2,10 +2,10 @@
 
 /**
  * 
- * Représente la table Date
+ * Représente la table Prog
  *
  */
-class Date {
+class Prog {
 	
 	private $day;
 	

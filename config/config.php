@@ -25,5 +25,18 @@ define("ALLOCINE_NB_DAY_REQUEST",10);
 /// Clé de session sous laquelle seront enregistré tout les 
 define("SESSION_KEY", "LE_BRETAGNE_NEWSLETTER");
 
+/*
+ * Envoi de la newsletter
+ * 
+ */
+///Adresse d'envoie
+define("NEWSLETTER_SEND_EMAIL_SENDER", "guerchecine@free.fr");
+
+/*
+ * Config des pages 
+ */
+
+///Nombre de newsletters affiché dans le menu
+define("PAGE_ADMIN_NEWSLETTERS_NB_DISPLAY", 10);
 
 ?>

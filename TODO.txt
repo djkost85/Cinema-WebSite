@@ -1,15 +1,19 @@
 Liste des choses à faire :
 
-
+* P1 - permettre d'importer la prog dans la newsletter
+	=> générer un template newsletter
+	=> générer le blob
+* P1 : pusher tout ça sur github
 * P1 - page de gestion des newsletters		
-	=> sous rubrique pour éditer les newsletters 
-		=> installer le ckeditor
-		=> exécuter des tests
+	=> édition les newsletters 
+		=> exécuter des tests email
+			* js : faire valider que c'est les changements sauvegardé en base qui seront envoyé
+			* js : valider qu'une adresse valide a bien été entrée
+		=> gérer les images
 		=> ajouter des calendriers jquery pour le choix des date de l'import de prog
 		=> exécuter la possibilité d'importer la programation
 		=> gestion des inscrits à la newsletter
 	=> sous rubrique pour lister les newsletters en cours
-* P1 - permettre d'importer la prog dans la newsletter
 * P2 - faire un script qui génére la programmation semaine par semaine
 	=> identifier la prog par film et par semaine
 	=> séparer l'identification de la validation

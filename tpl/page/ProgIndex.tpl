@@ -1,6 +1,5 @@
 {*Page d'index de la page prog*}
 {mask:main}
-<h1>Programmation</h1>
 <h2>Saisie</h2>
 <h3>Import à partir d'un fichier texte</h3>
 A venir prochainement ...

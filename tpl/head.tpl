@@ -11,13 +11,28 @@
 	<body>
 	<div id="head">
 		<div id="header">
+		<h1>{title}</h1>
 		</div>
-		<div id="menu">
+		<div id="menu">			
 			<ul>
-				<li><a href="index.php?page=ProgPage">Programmation</a></li>
-				<li><a href="index.php?page=NewsLettersPage">Newsletter</a></li>
+				{menu}				
+				</li>
 			</ul>
 		</div>
 	</div>
 	<div id="content">
+{/mask}
+
+{mask:menu}
+	<li><a href="{url}" {selected} >{name}</a></li>
+	{choose}
+		{when: {hasSubMenu} == true }
+			<ul>
+			{submenu}
+			</ul>
+		{/when}
+	{/choose}
+{/mask}
+{mask:submenu}
+<li><a href="{url}" {selected}>{name}</a></li>
 {/mask}

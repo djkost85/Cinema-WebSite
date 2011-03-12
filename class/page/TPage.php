@@ -43,6 +43,7 @@ abstract class TPage {
 		/// Paramètre utilisé par le template
 		$this->page = new stdClass();
 		$this->page->title = $title;
+		$this->page->hasSubMenu = false;
 		
 		//$this->sessionMgr = $sessionMgr;
 	}
@@ -70,7 +71,68 @@ abstract class TPage {
 	
 	///Page remplissant l'objet page qui contient les différents item du template
 	abstract function generateHTML();
+	
+	public function addMenu($name, $url, $selected){
+		$menu = new stdClass();
+		$menu->name = $name;
+		$menu->url = $url;
+		$menu->selected = $selected;
+		//gestion sous menu
+		list($submenu,$action) = $this->getSubMenu();
+		foreach($submenu as $item){
+			$url = $menu->url;
+			if($item['action'] != ''){
+				$url = $url."&action=".$item['action'];
+			}
+			
+			$selected = "";
+			if($item['action'] == $action){
+				$selected = 'class="here"'; 
+			}
+			
+			$this->addSubmenu($item['name'],$url, $menu, $selected);	
+		}
+		$this->page->menu[] = $menu;
+		
+	} 
+	
+	function addSubmenu($name,$url, $menu, $selected){
+		$menu->hasSubMenu = true;
+		
+		$submenu = new stdClass();
+		$submenu->name = $name;
+		$submenu->url = $url;
+		$submenu->selected = $selected;
+		$menu->submenu[] = $submenu;
+	}
 
+	
+	public function generateMenu($pageName){
+		//tableau regroupant les rubriques du menus 
+		$menu = array(	array('name' => "Accueil", 'page' => 'Home'),
+						array('name' => "Programmation", 'page' => 'ProgPage'),
+						array('name' => "Newsletter", 'page' => 'NewsLettersPage'));
+						
+		foreach($menu as $item){
+			
+			$selected = '';
+			if($item['page'] == $pageName){
+				$selected = 'class="here"';
+			}
+			$this->addMenu($item['name'],'index.php?page='.$item['page'], $selected);
+			 
+		}
+	}
+	
+	/**
+	 * 
+	 * A réimplémenter par les pages comprennant un sous menu
+	 * Cette méthode doit renvoyer un tableau avec des clef 'name' et 'action'
+	 * @param $menu
+	 */
+	protected function getSubMenu(){
+		return array(array(),"");
+	}
 
 }
 

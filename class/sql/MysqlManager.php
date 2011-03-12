@@ -55,6 +55,10 @@ class MysqlManager {
 		return $result;
 	}
 	
+	static public function fetch($result){
+		return mysql_fetch_array($result);
+	}
+	
 	/**
 	 * Exécute une requete de type insert
 	 * @param $query la requete

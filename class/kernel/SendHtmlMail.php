@@ -38,7 +38,7 @@ class SendHtmlMail {
 		$orig = array();
 		$dest = array();
 		preg_match_all("/<img src\=\"(.*)\"/", $html, $matches);
-		print_r($matches);
+		//print_r($matches);
 
 		foreach($matches[1] as $file){
 			$orig[] = "/".$file."/";
@@ -48,7 +48,7 @@ class SendHtmlMail {
 		//Ensuite, on remplace par leurs versions courte
 		$html = preg_replace($orig,$dest,$html);
 
-		echo $html;
+		//echo $html;
 		//mémorisation en contenu mime du html
 		$this->mime->setHTMLBody($html);
 	

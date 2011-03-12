@@ -50,16 +50,21 @@ class Application {
 		$pageClass = $this->getPost('page');
 		if(empty($pageClass) == false){
 			if(empty($this->pageList[$pageClass])==false){
-				$this->currentPage = new $pageClass($this);
+				$this->currentPage = new $pageClass($this);				
 			}
 		}
 
 		//page par défaut
 		if($this->currentPage == null){
+			$pageClass = 'Home';
 			$this->currentPage = new Home($this);	
 		}
 		
+		$this->currentPage->generateMenu($pageClass);
+		
 	}//Contrôle des paramètres de connexion
+	
+	
 	
 	/**
 	 * Récupère une variable extérieure à l'application par priorité :
@@ -108,6 +113,10 @@ class Application {
 	
 	function getSessionValue($key){
 		return $this->session[$key];
+	}
+	
+	function issetSessionValue($key){
+		return isset($this->session[$key]);
 	}
 	
 	function unsetValue($key){

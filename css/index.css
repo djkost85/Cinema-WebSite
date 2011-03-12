@@ -1,9 +1,22 @@
 @CHARSET "UTF-8";
 
+body {
+	background-color: #EEE;
+	color: #333;
+	font-family: arial, geneva, lucida, sans-serif;
+	font-size: 13px;
+	margin: 0px;
+	padding: 0px 40px;
+}
+
 #header {
 	width: 100%
 	 
 }
+
+/***************Menu***********************************************/
+/*Merci à http://clagnut.com/sandbox/csstabs/?writingtext=csstabs#*/
+/******************************************************************/
 
 #menu ul {
 	position:relative;
@@ -45,4 +58,41 @@
 #menu A.here:visited {
 	position:relative;
 	z-index:102;
+}
+
+/*subnav*/
+
+#menu ul UL {
+	position:absolute;
+	left:0;
+	top:1.5em;
+	float:left;
+	background:#bbb;
+	width:100%;
+	margin:0;
+	padding:0.25em 0.25em 0.25em 1em;
+	list-style:none;
+	border-top:1px solid #fff;
+}
+
+#menu ul UL LI {
+	float:left;
+	display:block;
+	margin-top:1px;
+}
+
+#menu ul UL A {
+	background:#bbb;
+	color:#fff;
+	display:inline;
+	margin:0;
+	padding:0 1em;
+	border:0
+}
+
+#menu ul UL A:hover,
+#menu ul UL A:active,
+#menu ul UL A.here:link,
+#menu ul UL A.here:visited {
+	color:#444;
 }

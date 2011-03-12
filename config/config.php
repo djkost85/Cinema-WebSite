@@ -29,8 +29,12 @@ define("SESSION_KEY", "LE_BRETAGNE_NEWSLETTER");
  * Envoi de la newsletter
  * 
  */
+
 ///Adresse d'envoie
 define("NEWSLETTER_SEND_EMAIL_SENDER", "guerchecine@free.fr");
+
+define("NEWSLETTER_SEND_EMAIL_TEMPLATE", "tpl/newsletter/newsletter.tpl");
+
 
 /*
  * Config des pages 

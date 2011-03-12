@@ -9,7 +9,7 @@
 {/mask}
 
 {mask:prog}
-<li>{day}<ul>{time}</ul></li>
+<li>{day} à {time}</li>
 {/mask}
 
 {*{mask:time}

@@ -9,11 +9,17 @@ require_once("class/page/TPage.php");
 
 class NewsLettersPage extends TPage {
 	
-	//en mode edit : il s'agit de la newsletters courante
+	//mode edit 
+	
+	//la newsletters courante
 	private $currentNewsletter;
+	
+	//l'adresse email de test
+	private $currentEmail;
 	
 	//en mode manage : la liste des Newsletters afficher
 	private $newslettersList;
+		
 	
 	private $action;
 	
@@ -51,12 +57,14 @@ class NewsLettersPage extends TPage {
 					
 					//actions
 					$save = $this->app->getPost('save');
-					$testMail = $this->app->getPost('testMail');							
-					
+					$testMail = $this->app->getPost('testMail');
+					$import = $this->app->getPost('import');							
+
 					if($save != null){
 						//sauvegarde de la newsletters
 						$contents = $this->app->getPost('contents');
-						$object = $this->app->getPost('object');						
+						$object = $this->app->getPost('object');
+						
 						//sauvegarde de la newsletters en cours d'édition 						
 						$this->currentNewsletter->setContents($contents);
 						$this->currentNewsletter->setObject($object);
@@ -68,11 +76,44 @@ class NewsLettersPage extends TPage {
 						$sendHtmlMail->addEmailAdress($emailAdress);
 						$sendHtmlMail->setHTML($this->currentNewsletter->getContents());
 						$sendHtmlMail->send();
+					}elseif($import != null){
+						//import de la programation dans la lettre
+						$startDate = $this->app->getPost('startDate');
+						$endDate = $this->app->getPost('endDate');
+						
+						$projectionMgr = new ProjectionMgr();
+						
+						$prog = $projectionMgr->getProjection($startDate,$endDate);
+						
+						$page = new stdClass();
+						$page->dateBegin = $startDate;
+						$page->dateEnd = $endDate;
+						foreach($prog as $film){
+							$filmObj = new stdClass();
+							$filmObj->title = $film->getTitle();
+							$filmObj->resume = $film->getResume();
+							$filmObj->avertissement = $film->getAvertissementMsg();
+							
+							foreach($film->getProjection() as $proj){
+								$progObj = new stdClass();
+								$progObj->day = $proj->getDay();
+								$progObj->time = $proj->getTime();
+								$filmObj->prog[] = $progObj;
+							}
+							
+							$page->film[] = $filmObj;
+						}
+						$contents = sprintt($page,NEWSLETTER_SEND_EMAIL_TEMPLATE);
+						$this->currentNewsletter->setContents($contents);
+						
 					}
 				}else{
 					//c'est qu'on est en mode création d'une nouvelle newsletters
 					$this->currentNewsletter = new Newsletters(); 
 				}
+				
+				//on recopie l'adresse email
+				$this->page->currentEmail = $this->app->getPost('testMailAddress');
 				
 				$this->app->storeSessionValue("NewsLettersPageCurrentNewsletter",$this->currentNewsletter);
 				
@@ -103,7 +144,7 @@ class NewsLettersPage extends TPage {
 	function generateHTML(){
 		if($this->_tplFile == "page/NewsletterEdit.tpl"){
 			$this->page->object = $this->currentNewsletter->getObject();
-			$this->page->contents = $this->currentNewsletter->getContents();
+			$this->page->contents = $this->currentNewsletter->getContents();			
 		}elseif($this->_tplFile  == "page/NewsletterMenu.tpl"){
 			$this->page->newsletters = array();
 			foreach($this->newslettersList as $newsletter){

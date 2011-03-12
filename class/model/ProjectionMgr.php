@@ -69,8 +69,34 @@ class ProjectionMgr {
 			$proj[] = new Projection($projField['day'],$projField['time'],$film,$projField['id']);
 		}
 		
-		return $proj;
-				
+		return $proj;			
+	}
+	
+	/**
+	 * 
+	 * Retourne un tableau avec les films et les projections correspondante 
+	 * @param $startDate au format YYYY-MM-DD
+	 * @param $endDate au format YYYY-MM-DD
+	 * @return le tableau
+	 */
+	function getProjection($startDate, $endDate){
+		$query =  "SELECT id, film_id, day, TIME_FORMAT(time,'%H:%i') as time, imported FROM Projection ";
+		$query .= " WHERE day >= DATE('".$startDate."') AND day <= DATE('".$endDate."') ORDER BY day, time";
+		
+		$result = MysqlManager::getResult($query);
+		$proj = array();
+
+		$filmMgr = new FilmMgr();
+		
+		foreach($result as $projField){
+			$film = $filmMgr->getFilmById($projField['film_id']);			
+			$proj = new Projection($projField['day'],$projField['time'],$film,$projField['id']);
+			$film->addProjection($proj);
+
+			$films[$film->getId()] = $film;
+		}
+		
+		return $films;	
 	}
 	
 	

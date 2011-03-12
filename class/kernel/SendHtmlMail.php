@@ -37,14 +37,17 @@ class SendHtmlMail {
 		$matches = array();
 		$orig = array();
 		$dest = array();
-		preg_match_all("/<img src\=\"(.*)\"/", $html, $matches);
+
+		preg_match_all('# [^>]* src="(.*\.jpg)" #', $html, $matches);
+		//preg_match_all("/<img(.*)\/>/", $html, $matches);
 		//print_r($matches);
 
 		foreach($matches[1] as $file){
-			$orig[] = "/".$file."/";
+			$orig[] = "#".$file."#";
 			$dest[] = basename($file);
+			
 		}
-
+		
 		//Ensuite, on remplace par leurs versions courte
 		$html = preg_replace($orig,$dest,$html);
 

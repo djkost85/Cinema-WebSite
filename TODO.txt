@@ -1,9 +1,12 @@
 Liste des choses à faire :
 
 * P1 - permettre d'importer la prog dans la newsletter
+	=> importer les images
 	=> js : message d'avertissement à l'import, ça efface le texte existant
 	=> js : ajouter des calendriers jquery pour le choix des date de l'import de prog
+	=> mettre à jour l'objet aussi
 * P1 : pusher tout ça sur github
+* P1 : copier les images en local lors de l'import allociné
 * P1 - page de gestion des newsletters		
 	=> édition les newsletters 
 		=> exécuter des tests email

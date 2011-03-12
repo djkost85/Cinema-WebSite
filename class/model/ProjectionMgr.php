@@ -80,7 +80,7 @@ class ProjectionMgr {
 	 * @return le tableau
 	 */
 	function getProjection($startDate, $endDate){
-		$query =  "SELECT id, film_id, day, TIME_FORMAT(time,'%H:%i') as time, imported FROM Projection ";
+		$query =  "SELECT id, film_id, day, TIME_FORMAT(time,'%H:%i') as time	, imported FROM Projection ";
 		$query .= " WHERE day >= DATE('".$startDate."') AND day <= DATE('".$endDate."') ORDER BY day, time";
 		
 		$result = MysqlManager::getResult($query);

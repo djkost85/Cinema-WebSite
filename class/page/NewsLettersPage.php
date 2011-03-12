@@ -64,6 +64,7 @@ class NewsLettersPage extends TPage {
 						//sauvegarde de la newsletters
 						$contents = $this->app->getPost('contents');
 						$object = $this->app->getPost('object');
+						Logger::getRootLogger()->debug($contents);
 						
 						//sauvegarde de la newsletters en cours d'édition 						
 						$this->currentNewsletter->setContents($contents);
@@ -74,36 +75,15 @@ class NewsLettersPage extends TPage {
 						$emailAdress = $this->app->getPost('testMailAddress');
 						$sendHtmlMail = new SendHtmlMail(NEWSLETTER_SEND_EMAIL_SENDER, $this->currentNewsletter->getObject());
 						$sendHtmlMail->addEmailAdress($emailAdress);
-						$sendHtmlMail->setHTML($this->currentNewsletter->getContents());
+						$sendHtmlMail->setHTML(stripslashes($this->currentNewsletter->getContents()));
 						$sendHtmlMail->send();
 					}elseif($import != null){
-						//import de la programation dans la lettre
+						
 						$startDate = $this->app->getPost('startDate');
 						$endDate = $this->app->getPost('endDate');
 						
-						$projectionMgr = new ProjectionMgr();
+						$contents = $this->importProgrammation($startDate,$endDate);
 						
-						$prog = $projectionMgr->getProjection($startDate,$endDate);
-						
-						$page = new stdClass();
-						$page->dateBegin = $startDate;
-						$page->dateEnd = $endDate;
-						foreach($prog as $film){
-							$filmObj = new stdClass();
-							$filmObj->title = $film->getTitle();
-							$filmObj->resume = $film->getResume();
-							$filmObj->avertissement = $film->getAvertissementMsg();
-							
-							foreach($film->getProjection() as $proj){
-								$progObj = new stdClass();
-								$progObj->day = $proj->getDay();
-								$progObj->time = $proj->getTime();
-								$filmObj->prog[] = $progObj;
-							}
-							
-							$page->film[] = $filmObj;
-						}
-						$contents = sprintt($page,NEWSLETTER_SEND_EMAIL_TEMPLATE);
 						$this->currentNewsletter->setContents($contents);
 						
 					}
@@ -128,6 +108,36 @@ class NewsLettersPage extends TPage {
 		
 	}
 	
+	private function importProgrammation($startDate, $endDate){
+		//import de la programation dans la lettre
+
+		
+		$projectionMgr = new ProjectionMgr();
+		
+		$prog = $projectionMgr->getProjection($startDate,$endDate);
+		
+		$page = new stdClass();
+		$page->dateBegin = $startDate;
+		$page->dateEnd = $endDate;
+		foreach($prog as $film){
+			$filmObj = new stdClass();
+			$filmObj->posterSrc = $film->getPoster();
+			$filmObj->title = $film->getTitle();
+			$filmObj->resume = $film->getResume();
+			$filmObj->avertissement = $film->getAvertissementMsg();
+			
+			foreach($film->getProjection() as $proj){
+				$progObj = new stdClass();
+				$progObj->day = $proj->getDay();
+				$progObj->time = $proj->getTime();
+				$filmObj->prog[] = $progObj;
+			}
+			
+			$page->film[] = $filmObj;
+		}
+		return sprintt($page,NEWSLETTER_SEND_EMAIL_TEMPLATE);
+	}
+	
 	/**
 	 * 
 	 * A réimplémenter par les pages comprennant un so<h1>Programmation</h1>us menu
@@ -144,7 +154,7 @@ class NewsLettersPage extends TPage {
 	function generateHTML(){
 		if($this->_tplFile == "page/NewsletterEdit.tpl"){
 			$this->page->object = $this->currentNewsletter->getObject();
-			$this->page->contents = $this->currentNewsletter->getContents();			
+			$this->page->contents = stripslashes($this->currentNewsletter->getContents());			
 		}elseif($this->_tplFile  == "page/NewsletterMenu.tpl"){
 			$this->page->newsletters = array();
 			foreach($this->newslettersList as $newsletter){

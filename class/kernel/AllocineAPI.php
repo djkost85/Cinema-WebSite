@@ -34,7 +34,7 @@ class AllocineAPI {
 	 */
 	function getProgCine($postCode, $allocineCinemaCode, $date, $radius = 10){
 		
-		$url = "http://api.allocine.fr/xml/showtimelist?partner=2&json=1&";
+		$url = "http://api.allocine.fr/xml/showtimelist?partner=1&json=1&";
 		// Code Postal
 		if (!is_numeric($postCode)) {
 			throw new InvalidArgumentException("[AllocineAPI::getProgCine] \$postCode n'est pas un nombre mais '".$postCode."'");
@@ -67,28 +67,33 @@ class AllocineAPI {
 						
 						if($theater['theater']['code'] == $allocineCinemaCode){
 							
-							foreach($theater['movieShowtimes'] as $movie){
-								
-								$film = $this->filmMgr->getFilm($movie['movie']['title']);
+							if(isset($theater['movieShowtimes'])){
 
-								//replissage des valeurs dans l'objet
-								//sauvegarde url affiche
-								if($film->getPoster()==""){
-									$film->setPoster($movie['poster']['href']);
-								}
-								//id allociné
-								if($film->getAllocineId()==""){									
-									$film->setAllocineId($movie['movie']['code']);
-								}
+								foreach($theater['movieShowtimes'] as $movie){
 								
-								//programmation
-								foreach($movie['scr'] as $progDate){
-									foreach($progDate['t'] as $time){										
-										$projection = new Projection($progDate['d'],$time['$'], $film);
-										$film->addProjection($projection);						
+									$film = $this->filmMgr->getFilm($movie['movie']['title']);
+
+									//replissage des valeurs dans l'objet
+									//sauvegarde url affiche
+									if($film->getPoster()==""){
+										$film->setPoster($movie['poster']['href']);
 									}
+									//id allociné
+									if($film->getAllocineId()==""){									
+										$film->setAllocineId($movie['movie']['code']);
+									}
+								
+									//programmation
+									foreach($movie['scr'] as $progDate){
+										foreach($progDate['t'] as $time){										
+											$projection = new Projection($progDate['d'],$time['$'], $film);
+											$film->addProjection($projection);						
+										}
+									}
+									$result[] = $film;
 								}
-								$result[] = $film;
+							}else{								
+								Logger::getRootLogger()->debug(print_r($theater['theater'],true));
 							}
 						}
 					}

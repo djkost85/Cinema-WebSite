@@ -68,6 +68,7 @@ abstract class TPage {
 		return $this->error;
 	}
 	
+	///Page remplissant l'objet page qui contient les différents item du template
 	abstract function generateHTML();
 
 

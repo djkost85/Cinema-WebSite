@@ -4,11 +4,20 @@
 	<head>
 		<meta content="text/html; Charset=UTF-8" http-equiv="Content-Type" />
 		<title>{title}</title>
+		<style type="text/css">
+			@import "css/index.css";
+		</style>
 	</head>
 	<body>
-	{test}
-		<ul>
-			<li><a href="index.php?page=ProgPage">Programmation</a></li>
-			<li><a href="index.php?page=Newsletter">Newsletter</a></li>
-		</ul>
+	<div id="head">
+		<div id="header">
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="index.php?page=ProgPage">Programmation</a></li>
+				<li><a href="index.php?page=NewsLettersPage">Newsletter</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content">
 {/mask}

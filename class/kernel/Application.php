@@ -1,12 +1,17 @@
 <?php
 
-session_start();
+
 require_once("config/config.php");
 require_once('class/page/ProgPage.php');
 require_once('class/page/Home.php');
+require_once('class/page/NewsLettersPage.php');
+
+//On inclue la classe film car elle est sérialisé dans les session et 
+//doit être déclarée avant le session_start()
+require_once('class/model/Film.php');
 
 require_once('lib/ets/ets.php');
-
+session_start();
 
 
 /**
@@ -19,10 +24,14 @@ class Application {
 	
 	/// Liste des pages disponnible
 	private $pageList = array(	"ProgPage" => "class/page/ProgPage.php",
-								"Home" => "class/page/Hom$_SESSION[SESSION_KEY]e.php");
+					"Home" => "class/page/Home.php",
+					"NewsLettersPage" => "class/page/NewsLettersPage.php");
 	
 	/// Page courante à afficher
 	private $currentPage;
+	
+	/// Pointeur sur l'objet stocké en session
+	private $session;
 	
 	function getCurrentPage(){
 		return $this->currentPage;
@@ -99,6 +108,10 @@ class Application {
 	
 	function getSessionValue($key){
 		return $this->session[$key];
+	}
+	
+	function unsetValue($key){
+		unset($this->session[$key]);
 	}
 	
 	

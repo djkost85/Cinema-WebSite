@@ -11,12 +11,12 @@
 define("ALLOCINE_CINEMA_CODE", "W0419");
 
 /// Code postal du cinéma
-define("ALLOCINE_CINEMA_POSTCODE", "35130")
+define("ALLOCINE_CINEMA_POSTCODE", "35130");
 
 
 
 /// Nombre de jour après la selection de la date sur laquelle on va requêter le site allocine
-define("ALLOCINE_NB_DAY_REQUEST",30);
+define("ALLOCINE_NB_DAY_REQUEST",10);
 
 /*----------
  * Session

@@ -2,14 +2,13 @@
 
 set_include_path(get_include_path().":../../..");
 
-require_once("class/model/ProgMgr.php");
+require_once("class/model/ProjectionMgr.php");
 
-class TestProgMgr extends PHPUnit_Framework_TestCase {
+class TestProjectionMgr extends PHPUnit_Framework_TestCase {
 	
 	function testImportProg(){
-		$progMgr = new ProgMgr();
-		$films = $progMgr->importProg("prog_test_website.csv");
-		//print_r($films);
+		$projectionMgr = new ProjectionMgr();
+		$films = $projectionMgr->importProgrammation("prog_test_website.csv");
 		$this->assertEquals(12,count($films));
 		
 	}

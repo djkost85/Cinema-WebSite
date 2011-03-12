@@ -42,7 +42,10 @@ class ProgPage extends TPage {
 			
 			$this->app->unsetValue("ProgPageFilms");
 			
-		}
+		}/*elseif($action="Consult"){
+			$this->_tplFile = "page/ProgConsult.tpl";
+			
+		}*/
 	}
 	
 	private function setProgFromAllocine(){
@@ -85,7 +88,7 @@ class ProgPage extends TPage {
 	}
 	
 	/**
-	 * On remplie la variable page utilisé pour la génération du template
+	 * On remplie la variable page utilisée pour la génération du template
 	 * @see TPage::generateHTML()
 	 */
 	public function generateHTML() {
@@ -107,9 +110,10 @@ class ProgPage extends TPage {
 	
 				$this->page->film[] = $film;
 			}
+		}elseif($this->_tplFile == "page/ProgConsult.tpl"){
+			
 		}
 	}
-	
 }
 
 ?>

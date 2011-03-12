@@ -1,9 +1,6 @@
 {mask:main}
-<h1>Programme importé d'allociné :</h1>
+<h1>Programmation du {dateBegin} au {dateEnd}</h1>
 {film}
-<form method="post" action="index.php?page=ProgPage&action=ImportValid">
-	<input type="submit" name="Valider l'import" value="Valider l'import" />
-</form>
 {/mask}
 
 {mask:film}

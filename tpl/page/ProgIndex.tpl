@@ -18,7 +18,7 @@ A venir prochainement ...
 <ul>
 {programmation}
 </ul>
-<a href="index.php?page=ProgPage&display=Archive">Consulter archive</a>
+<a href="index.php?page=ProgPage&display=Consult">Consulter</a>
 
 {/mask}
 

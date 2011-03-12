@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+
+#header {
+	width: 100%
+	 
+}
+
+#menu ul {
+	position:relative;
+	float:left;
+	width:100%;
+	padding:0 0 1.75em 1em;
+	margin:0;
+	list-style:none;
+	line-height:1em;
+}
+
+#menu li {
+	float:left;
+	margin:0;
+	padding:0;
+}
+
+#menu A {
+	display:block;
+	color:#444;
+	text-decoration:none;
+	font-weight:bold;
+	background:#ddd;
+	margin:0;
+	padding:0.25em 1em;
+	border-left:1px solid #fff;
+	border-top:1px solid #fff;
+	border-right:1px solid #aaa;
+}
+
+#menu A:hover,
+#menu A:active,
+#menu A.here:link,
+#menu A.here:visited {
+	background:#bbb;
+}
+
+#menu A.here:link,
+#menu A.here:visited {
+	position:relative;
+	z-index:102;
+}

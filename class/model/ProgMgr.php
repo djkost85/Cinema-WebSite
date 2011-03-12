@@ -1,54 +1,59 @@
 <?php
 
-require_once("class/model/FilmMgr.php");
+	require_once("class/kernel/Date.php");
 
-class ProgMgr {
-
-	/**
-	 * 
-	 * Cette fonction s'occupe d'importer un fichier csv contenant la programmation
-	 * 
-	 * @param  $file chemin d'accès au csv
-	 * @return tableau contenant la liste des fichiers importés avec leur programation
-	 */
-	function importProg($file){
+	class ProgMgr {
 		
-		$filmMgr = new FilmMgr();		
-		$res = fopen($file,'r');
-		//on passe la premier ligne
-		fgets($res, 4096);
-		
-		$prog = array();
-		$films = array();
-		while(($buffer = fgets($res, 4096)) !== false){
-			$register = split(";",$buffer);
-			$film = $filmMgr->getFilm($register[2]);
-			$prog = new Prog($register[0],$register[1], $film);			
-			$film->addProg($prog);
-			$films[] = $film;
+		function __construct(){
 		}
 		
-		$films=array_unique($films);
+		/**
+		 * Cette fonction retourne la liste 
+		 * des semaines pour lesquels on dispose d'info
+		 * mais dont le programme n'a pas été généré
+		 */
+		function getNotGeneratedWeek($tplPath){		
+			$projectionMgr = new ProjectionMgr();
+
+			$notImportedProjList = $projectionMgr->getNotImportedProjections();
+
+			$progList = array();
+			
+			$date = new Date();
+
+			foreach($notImportedProjList as $proj){
+				
+				//On récupère la date de la semaine correspondante 
+				$weekDate = $date->getCorrespondingWeek($proj->getDay());
 		
-		return $films ;
-	}
-	
-	/**
-	 * Retourne la dernière date de programmation effectuée 
-	 * si si elle est supperieur à la date du jour sinon on retouren la date du jour
-	 */
-	function getLastProgDate(){
-		$beginImportDate = date("Y-m-d");		
-		$query = "SELECT DATE_FORMAT(day,'%Y-%m-%d') FROM Prog WHERE day > ".$beginImportDate." ORDER BY day LIMIT 1";
-		$result = MysqlManager::getSimpleResult($query);		
-		if(empty($result)==false){	
-			$beginImportDate = $result;
+				//On indexe les projections correspondantes
+				$progList[$weekDate][] = $proj;
+						
+			}
+			
+			$page = new stdClass();
+			$page->film = new stdClass();
+			$progs = array();
+			foreach($progList as $beginDate => $prog){
+				$endDate = $date->getDecDate($beginDate,7);
+				foreach($prog as $proj){
+					$id = $proj->getFilm()->getId()
+					if(isset($page->film->$id) == false){
+						$page->film->$id = new stdClass();
+						$page->film->$id->title = $proj->getFilm()->getTitle();
+						$page->film->$id->proj = new stdClass();
+					}else{
+						$page->film->$id->proj[] = $proj->getDay()." ".$proj->getTime();
+					}
+				}
+				$content = sprintt($page,$tplPath."newsletter/newsletter.tpl");
+				$progs[] = new Prog($beginDate, $endDate, $content);
+			}
+			
+			return $prog;
+		
 		}
-		return $beginImportDate;
-		
+			
 	}
-	
-	
-}
 
 ?>

@@ -5,8 +5,8 @@ require_once("lib/log4php/Logger.php");
 class MysqlManager {
 
 	static private  $_dbServerName = "localhost";
-	static private  $_dbUserName = "root";
-	static private  $_dbPassword = "07j11b82";
+	static private  $_dbUserName = "login";
+	static private  $_dbPassword = "";
 	static private  $_databaseName = "cinedb";
 
 	static private $_isConnected = false;
